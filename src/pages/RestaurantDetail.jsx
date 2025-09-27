@@ -5,26 +5,12 @@ import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { StarIcon, MapPinIcon, ClockIcon } from "@heroicons/react/24/solid"
 import { foodItems } from "../data/foodItems"
+import { restaurants } from "../data/restaurants"
 import FoodCard from "../components/FoodCard"
-
-const sampleRestaurants = {
-  "sizzling-spice": {
-    id: "sizzling-spice",
-    name: "Sizzling Spice",
-    rating: 4.5,
-    votes: 1200,
-    address: "123 Food Street, Mumbai",
-    cuisines: ["North Indian", "Chinese", "Fast Food"],
-    deliveryTime: "25-35 mins",
-    costForTwo: "₹400 for two",
-    image:
-      "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop",
-  },
-}
 
 const RestaurantDetail = () => {
   const { id } = useParams()
-  const restaurant = sampleRestaurants[id] || sampleRestaurants["sizzling-spice"]
+  const restaurant = restaurants[id] || restaurants["sizzling-spice"]
 
   const menuItems = useMemo(() => {
     // In real app, fetch items by restaurant id; here reuse foodItems
@@ -66,6 +52,29 @@ const RestaurantDetail = () => {
             <h3 className="font-semibold text-gray-800">Address</h3>
             <p className="text-gray-600 text-sm sm:text-base">{restaurant.address}</p>
           </div>
+        </div>
+      </div>
+
+      {/* Reviews */}
+      <div className="bg-white rounded-xl p-4 shadow-sm">
+        <h3 className="font-semibold text-gray-800 mb-3">Recent Reviews</h3>
+        <div className="space-y-3">
+          {(restaurant.reviews || []).map((rev, idx) => (
+            <div key={idx} className="flex items-start gap-3">
+              <div className="flex items-center">
+                {[...Array(5)].map((_, i) => (
+                  <StarIcon
+                    key={i}
+                    className={`w-4 h-4 ${i < rev.rating ? "text-yellow-400" : "text-gray-300"}`}
+                  />
+                ))}
+              </div>
+              <div>
+                <p className="text-gray-700 text-sm sm:text-base">{rev.comment}</p>
+                <p className="text-xs text-gray-500 mt-1">— {rev.user}, {rev.date}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

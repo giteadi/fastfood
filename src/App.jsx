@@ -11,6 +11,7 @@ import { OrderProvider } from "./context/OrderContext"
 import CartPage from "./pages/CartPage"
 import CheckoutPage from "./pages/CheckoutPage"
 import RestaurantDetail from "./pages/RestaurantDetail"
+import FoodDetail from "./pages/FoodDetail"
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/restaurant/:id" element={<RestaurantDetail />} />
+              <Route path="/food/:id" element={<FoodDetail />} />
             </Routes>
           </main>
           <OrderHistory isOpen={isOrderHistoryOpen} onClose={() => setIsOrderHistoryOpen(false)} />

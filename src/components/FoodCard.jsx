@@ -2,12 +2,15 @@
 import { motion } from "framer-motion"
 import { PlusIcon, StarIcon, ClockIcon } from "@heroicons/react/24/solid"
 import { useCart } from "../context/CartContext"
+import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 
 const FoodCard = ({ item }) => {
   const { addToCart } = useCart()
+  const navigate = useNavigate()
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    e?.stopPropagation()
     addToCart(item)
     toast.success(`${item.name} added to cart!`, {
       icon: "🛒",
@@ -22,6 +25,7 @@ const FoodCard = ({ item }) => {
   return (
     <motion.div
       whileHover={{ y: -5 }}
+      onClick={() => navigate(`/food/${item.id}`)}
       className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
       {/* Food Image */}
@@ -61,7 +65,7 @@ const FoodCard = ({ item }) => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={handleAddToCart}
+            onClick={(e) => handleAddToCart(e)}
             className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white px-4 py-2 rounded-full font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transition-shadow"
           >
             <PlusIcon className="w-4 h-4" />
