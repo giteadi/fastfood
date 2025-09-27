@@ -2,18 +2,18 @@
 
 import { useState } from "react"
 import { Toaster } from "react-hot-toast"
+import { Routes, Route } from "react-router-dom"
 import Header from "./components/Header"
 import FoodMenu from "./components/FoodMenu"
-import Cart from "./components/Cart"
-import Checkout from "./components/Checkout"
 import OrderHistory from "./components/OrderHistory"
 import { CartProvider } from "./context/CartContext"
 import { OrderProvider } from "./context/OrderContext"
+import CartPage from "./pages/CartPage"
+import CheckoutPage from "./pages/CheckoutPage"
+import RestaurantDetail from "./pages/RestaurantDetail"
 
 
 function App() {
-  const [isCartOpen, setIsCartOpen] = useState(false)
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
   const [isOrderHistoryOpen, setIsOrderHistoryOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [dietaryFilter, setDietaryFilter] = useState("all")
@@ -24,7 +24,6 @@ function App() {
         <div className="min-h-screen bg-gray-50">
           <Toaster position="top-right" />
           <Header
-            onCartClick={() => setIsCartOpen(true)}
             onOrderHistoryClick={() => setIsOrderHistoryOpen(true)}
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -32,17 +31,13 @@ function App() {
             onDietaryFilterChange={setDietaryFilter}
           />
           <main className="container mx-auto px-4 py-8">
-            <FoodMenu searchTerm={searchTerm} dietaryFilter={dietaryFilter} />
+            <Routes>
+              <Route path="/" element={<FoodMenu searchTerm={searchTerm} dietaryFilter={dietaryFilter} />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/restaurant/:id" element={<RestaurantDetail />} />
+            </Routes>
           </main>
-          <Cart
-            isOpen={isCartOpen}
-            onClose={() => setIsCartOpen(false)}
-            onCheckout={() => {
-              setIsCartOpen(false)
-              setIsCheckoutOpen(true)
-            }}
-          />
-          <Checkout isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
           <OrderHistory isOpen={isOrderHistoryOpen} onClose={() => setIsOrderHistoryOpen(false)} />
         </div>
       </CartProvider>

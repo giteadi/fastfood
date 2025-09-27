@@ -4,101 +4,12 @@ import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import FoodCard from "./FoodCard"
 import CategoryFilter from "./CategoryFilter"
+import { foodItems } from "../data/foodItems"
 
 const FoodMenu = ({ searchTerm, dietaryFilter }) => {
   const [selectedCategory, setSelectedCategory] = useState("all")
 
-  // Sample food data - you can replace this with API data
-  const foodItems = [
-    {
-      id: 1,
-      name: "Margherita Pizza",
-      description: "Fresh tomatoes, mozzarella, and basil on crispy crust",
-      price: 299,
-      image: "/margherita-pizza.png",
-      category: "pizza",
-      isVeg: true,
-      rating: 4.5,
-      cookTime: "25-30 min",
-    },
-    {
-      id: 2,
-      name: "Chicken Biryani",
-      description: "Aromatic basmati rice with tender chicken and spices",
-      price: 349,
-      image: "/flavorful-chicken-biryani.png",
-      category: "biryani",
-      isVeg: false,
-      rating: 4.7,
-      cookTime: "35-40 min",
-    },
-    {
-      id: 3,
-      name: "Veg Burger",
-      description: "Crispy veggie patty with fresh lettuce and tomatoes",
-      price: 199,
-      image: "/vegetarian-burger.png",
-      category: "burger",
-      isVeg: true,
-      rating: 4.2,
-      cookTime: "15-20 min",
-    },
-    {
-      id: 4,
-      name: "Chicken Tikka",
-      description: "Grilled chicken marinated in yogurt and spices",
-      price: 279,
-      image: "/chicken-tikka.png",
-      category: "starter",
-      isVeg: false,
-      rating: 4.6,
-      cookTime: "20-25 min",
-    },
-    {
-      id: 5,
-      name: "Paneer Butter Masala",
-      description: "Creamy tomato curry with soft paneer cubes",
-      price: 259,
-      image: "/paneer-butter-masala.png",
-      category: "curry",
-      isVeg: true,
-      rating: 4.4,
-      cookTime: "20-25 min",
-    },
-    {
-      id: 6,
-      name: "Fish Curry",
-      description: "Fresh fish cooked in coconut curry sauce",
-      price: 329,
-      image: "/vibrant-fish-curry.png",
-      category: "curry",
-      isVeg: false,
-      rating: 4.3,
-      cookTime: "25-30 min",
-    },
-    {
-      id: 7,
-      name: "Veg Fried Rice",
-      description: "Stir-fried rice with mixed vegetables and soy sauce",
-      price: 189,
-      image: "/vegetarian-fried-rice.jpg",
-      category: "rice",
-      isVeg: true,
-      rating: 4.1,
-      cookTime: "15-20 min",
-    },
-    {
-      id: 8,
-      name: "Mutton Curry",
-      description: "Tender mutton pieces in rich spicy gravy",
-      price: 399,
-      image: "/mutton-curry.jpg",
-      category: "curry",
-      isVeg: false,
-      rating: 4.8,
-      cookTime: "45-50 min",
-    },
-  ]
+  // items imported from shared data
 
   const categories = [
     { id: "all", name: "All Items", icon: "🍽️" },
