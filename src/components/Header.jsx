@@ -85,13 +85,13 @@ const Header = ({
               <span className="font-medium text-sm sm:text-base hidden sm:inline">Orders</span>
             </motion.button>
 
-            {/* Restaurant Link */}
+            {/* Restaurants Link */}
             <Link
-              to="/restaurant/sizzling-spice"
+              to="/restaurants"
               className="flex items-center space-x-1 sm:space-x-2 text-gray-700 hover:text-pink-600 transition-colors"
             >
               <BuildingStorefrontIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="font-medium text-sm sm:text-base hidden sm:inline">Restaurant</span>
+              <span className="font-medium text-sm sm:text-base hidden sm:inline">Restaurants</span>
             </Link>
 
             {/* Cart Link - Responsive */}

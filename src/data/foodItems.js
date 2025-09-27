@@ -9,6 +9,7 @@ export const foodItems = [
     isVeg: true,
     rating: 4.5,
     cookTime: "25-30 min",
+    restaurantId: "urban-bites",
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const foodItems = [
     isVeg: false,
     rating: 4.7,
     cookTime: "35-40 min",
+    restaurantId: "sizzling-spice",
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ export const foodItems = [
     isVeg: true,
     rating: 4.2,
     cookTime: "15-20 min",
+    restaurantId: "urban-bites",
   },
   {
     id: 4,
@@ -42,6 +45,7 @@ export const foodItems = [
     isVeg: false,
     rating: 4.6,
     cookTime: "20-25 min",
+    restaurantId: "sizzling-spice",
   },
   {
     id: 5,
@@ -53,6 +57,7 @@ export const foodItems = [
     isVeg: true,
     rating: 4.4,
     cookTime: "25-30 min",
+    restaurantId: "green-garden",
   },
   {
     id: 6,
@@ -64,5 +69,6 @@ export const foodItems = [
     isVeg: true,
     rating: 4.3,
     cookTime: "20-25 min",
+    restaurantId: "green-garden",
   },
 ]

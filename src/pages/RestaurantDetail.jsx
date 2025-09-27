@@ -13,9 +13,8 @@ const RestaurantDetail = () => {
   const restaurant = restaurants[id] || restaurants["sizzling-spice"]
 
   const menuItems = useMemo(() => {
-    // In real app, fetch items by restaurant id; here reuse foodItems
-    return foodItems
-  }, [])
+    return foodItems.filter((f) => f.restaurantId === restaurant.id)
+  }, [restaurant.id])
 
   return (
     <div className="space-y-6">

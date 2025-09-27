@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { StarIcon, ClockIcon } from "@heroicons/react/24/solid"
 import { useCart } from "../context/CartContext"
@@ -13,8 +13,9 @@ const FoodDetail = () => {
   const { id } = useParams()
   const itemId = Number(id)
   const item = useMemo(() => foodItems.find((f) => f.id === itemId), [itemId])
-  const restaurant = restaurants["sizzling-spice"]
+  const restaurant = item ? restaurants[item.restaurantId] || restaurants["sizzling-spice"] : restaurants["sizzling-spice"]
   const { addToCart } = useCart()
+  const navigate = useNavigate()
 
   if (!item) {
     return (
@@ -31,6 +32,11 @@ const FoodDetail = () => {
       icon: "🛒",
       style: { borderRadius: "10px", background: "#333", color: "#fff" },
     })
+  }
+
+  const handleBuyNow = () => {
+    addToCart(item)
+    navigate("/checkout")
   }
 
   return (
@@ -63,6 +69,14 @@ const FoodDetail = () => {
                 className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
               >
                 Add to Cart
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleBuyNow}
+                className="ml-3 bg-gray-800 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
+              >
+                Buy Now
               </motion.button>
             </div>
           </div>
