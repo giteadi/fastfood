@@ -60,27 +60,29 @@ const FoodDetail = () => {
                 {item.isVeg ? "Veg" : "Non-Veg"}
               </span>
             </div>
-            <div className="mt-6 flex items-center justify-between">
-              <div className="text-3xl font-bold text-gray-800">₹{item.price}</div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleAdd}
-                className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
-              >
-                Add to Cart
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleBuyNow}
-                className="ml-3 bg-gray-800 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
-              >
-                Buy Now
-              </motion.button>
+            <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+              <div className="text-2xl sm:text-3xl font-bold text-gray-800">₹{item.price}</div>
+              <div className="flex w-full sm:w-auto gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleAdd}
+                  className="flex-1 sm:flex-none w-full sm:w-auto bg-gradient-to-r from-pink-500 to-yellow-400 text-white px-5 sm:px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  Add to Cart
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleBuyNow}
+                  className="flex-1 sm:flex-none w-full sm:w-auto bg-gray-800 text-white px-5 sm:px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  Buy Now
+                </motion.button>
+              </div>
             </div>
           </div>
-          <div className="h-56 md:h-full">
+          <div className="h-48 sm:h-56 md:h-full">
             <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
           </div>
         </div>

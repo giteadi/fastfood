@@ -30,7 +30,7 @@ const FoodCard = ({ item }) => {
     >
       {/* Food Image */}
       <div className="relative">
-        <img src={item.image || "/placeholder.svg"} alt={item.name} className="w-full h-48 object-cover" />
+        <img src={item.image || "/placeholder.svg"} alt={item.name} className="w-full h-40 sm:h-48 object-cover" />
         {/* Veg/Non-Veg Indicator */}
         <div className="absolute top-3 left-3">
           <div
@@ -50,7 +50,7 @@ const FoodCard = ({ item }) => {
 
       {/* Food Details */}
       <div className="p-4">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">{item.name}</h3>
+        <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">{item.name}</h3>
         <p className="text-gray-600 text-sm mb-3 line-clamp-2">{item.description}</p>
 
         {/* Cook Time */}
@@ -61,12 +61,12 @@ const FoodCard = ({ item }) => {
 
         {/* Price and Add Button */}
         <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold text-gray-800">₹{item.price}</div>
+          <div className="text-xl sm:text-2xl font-bold text-gray-800">₹{item.price}</div>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={(e) => handleAddToCart(e)}
-            className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white px-4 py-2 rounded-full font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transition-shadow"
+            className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white px-3 sm:px-4 py-2 rounded-full font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transition-shadow text-sm sm:text-base"
           >
             <PlusIcon className="w-4 h-4" />
             <span>Add</span>

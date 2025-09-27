@@ -60,7 +60,7 @@ const CheckoutPage = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">Checkout</h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         {/* Form */}
         <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-6">
           {/* Customer Information */}
@@ -70,7 +70,7 @@ const CheckoutPage = () => {
               Customer Information
             </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
                 <input
@@ -166,7 +166,7 @@ const CheckoutPage = () => {
             disabled={isProcessing}
             whileHover={{ scale: isProcessing ? 1 : 1.02 }}
             whileTap={{ scale: isProcessing ? 1 : 0.98 }}
-            className={`w-full py-3 rounded-full font-semibold text-lg shadow-lg transition-all ${
+            className={`w-full py-3 rounded-full font-semibold text-base sm:text-lg shadow-lg transition-all ${
               isProcessing
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-gradient-to-r from-pink-500 to-yellow-400 text-white hover:shadow-xl"
@@ -178,7 +178,7 @@ const CheckoutPage = () => {
 
         {/* Summary */}
         <div className="bg-white p-6 rounded-lg shadow-sm h-fit">
-          <h2 className="text-xl font-bold mb-4">Order Summary</h2>
+          <h2 className="text-lg sm:text-xl font-bold mb-4">Order Summary</h2>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span>Subtotal ({cartItems.length} items)</span>
@@ -192,7 +192,7 @@ const CheckoutPage = () => {
               <span>Tax (5%)</span>
               <span>₹{tax}</span>
             </div>
-            <div className="border-t pt-2 flex justify-between font-semibold text-lg">
+            <div className="border-t pt-2 flex justify-between font-semibold text-base sm:text-lg">
               <span>Total</span>
               <span className="text-pink-600">₹{finalTotal}</span>
             </div>

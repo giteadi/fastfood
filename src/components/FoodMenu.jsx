@@ -53,13 +53,13 @@ const FoodMenu = ({ searchTerm, dietaryFilter }) => {
     <div className="space-y-8">
       {/* Hero Section */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-8">
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
           Delicious Food,{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-400">
             Delivered Fast
           </span>
         </h2>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+        <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
           Order from your favorite restaurants and enjoy fresh meals at your doorstep in minutes!
         </p>
 

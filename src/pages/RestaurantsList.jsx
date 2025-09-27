@@ -41,12 +41,12 @@ const RestaurantsList = ({ searchTerm = "" }) => {
             className="bg-white rounded-xl overflow-hidden shadow-sm"
           >
             <Link to={`/restaurant/${r.id}`} className="block">
-              <div className="h-40 sm:h-48">
+              <div className="h-36 sm:h-48">
                 <img src={r.image} alt={r.name} className="w-full h-full object-cover" />
               </div>
               <div className="p-4 space-y-2">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-gray-800 text-lg">{r.name}</h3>
+                  <h3 className="font-semibold text-gray-800 text-base sm:text-lg">{r.name}</h3>
                   <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-full text-sm">
                     <StarIcon className="w-4 h-4 text-yellow-400 mr-1" />
                     <span className="font-semibold">{r.rating}</span>
@@ -54,7 +54,8 @@ const RestaurantsList = ({ searchTerm = "" }) => {
                 </div>
                 <p className="text-gray-600 text-sm">{r.cuisines.join(", ")}</p>
                 <div className="flex items-center text-gray-500 text-sm">
-                  <MapPinIcon className="w-4 h-4 mr-1" /> {r.address}
+                  <MapPinIcon className="w-4 h-4 mr-1" />
+                  <span className="line-clamp-2 sm:line-clamp-1">{r.address}</span>
                 </div>
                 <p className="text-gray-700 font-medium text-sm">{r.costForTwo}</p>
               </div>

@@ -19,7 +19,7 @@ const CartPage = () => {
         {cartItems.length > 0 && (
           <button
             onClick={() => navigate("/checkout")}
-            className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white px-4 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
+            className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white px-4 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow text-sm sm:text-base"
           >
             Proceed to Checkout
           </button>
@@ -120,7 +120,7 @@ const CartPage = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => navigate("/checkout")}
-              className="w-full mt-4 bg-gradient-to-r from-pink-500 to-yellow-400 text-white py-3 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-shadow"
+              className="w-full mt-4 bg-gradient-to-r from-pink-500 to-yellow-400 text-white py-3 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-shadow"
             >
               Place Order
             </motion.button>
