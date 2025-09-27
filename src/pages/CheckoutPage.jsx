@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { MapPinIcon, UserIcon, CreditCardIcon } from "@heroicons/react/24/outline"
 import { useCart } from "../context/CartContext"
 import { useOrder } from "../context/OrderContext"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
+import { foodItems as products } from "../data/foodItems"
 
 const CheckoutPage = () => {
   const { cartItems, getCartTotal, clearCart } = useCart()
@@ -19,6 +20,33 @@ const CheckoutPage = () => {
     email: "",
     address: "",
     paymentMethod: "cod",
+  })
+
+  // Load Razorpay checkout script once for dummy payments
+  useEffect(() => {
+    const loadRazorpayScript = () => {
+      const existing = document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]')
+      if (!existing) {
+        const script = document.createElement("script")
+        script.src = "https://checkout.razorpay.com/v1/checkout.js"
+        script.async = true
+        document.body.appendChild(script)
+      }
+    }
+    loadRazorpayScript()
+  }, [])
+
+  // Merge cart items with product metadata for potential payment payloads
+  const mergedCartItems = cartItems.map((item) => {
+    const product = products.find(
+      (p) => p.id === item.id || p.name === item.name || p.title === item.title,
+    )
+    const productId = product?.id
+    return {
+      ...item,
+      images: product ? [product.image] : [],
+      product_id: productId,
+    }
   })
 
   const handleInputChange = (e) => {
@@ -35,18 +63,63 @@ const CheckoutPage = () => {
 
     setIsProcessing(true)
     try {
-      const orderId = createOrder({
-        items: cartItems,
-        total: getCartTotal(),
-        customer: formData,
-        paymentMethod: formData.paymentMethod,
-      })
+      // If card payment selected, open Razorpay dummy checkout
+      if (formData.paymentMethod === "card") {
+        if (!window.Razorpay) {
+          toast.error("Payment service not ready. Please try again in a moment.")
+          return
+        }
 
-      clearCart()
-      toast.success(`Order #${orderId} placed successfully!`)
-      navigate("/")
+        const options = {
+          key: "rzp_test_suGlReUubwbXnb",
+          amount: finalTotal * 100, // amount in paise
+          currency: "INR",
+          name: "Easy Deal",
+          description: `Payment for ${cartItems.length} item(s)`,
+          notes: { merchant_id: "PRQMRBhNYCqX79" },
+          handler: () => {
+            try {
+              const orderId = createOrder({
+                items: cartItems,
+                total: getCartTotal(),
+                customer: formData,
+                paymentMethod: "razorpay",
+              })
+              clearCart()
+              toast.success(`Payment successful! Order #${orderId} placed.`)
+              navigate("/")
+            } catch (err) {
+              toast.error("Failed to place order after payment. Please contact support.")
+            }
+          },
+          prefill: {
+            name: formData.name || "",
+            email: formData.email || "",
+            contact: formData.phone || "",
+          },
+          theme: { color: "#EAB308" },
+        }
+
+        const rzp = new window.Razorpay(options)
+        rzp.on("payment.failed", function (response) {
+          toast.error(response?.error?.description || "Payment failed. Please try again.")
+        })
+        rzp.open()
+      } else {
+        // Cash on Delivery path
+        const orderId = createOrder({
+          items: cartItems,
+          total: getCartTotal(),
+          customer: formData,
+          paymentMethod: formData.paymentMethod,
+        })
+
+        clearCart()
+        toast.success(`Order #${orderId} placed successfully!`)
+        navigate("/")
+      }
     } catch (err) {
-      toast.error("Failed to place order. Please try again.")
+      toast.error("Failed to process request. Please try again.")
     } finally {
       setIsProcessing(false)
     }
