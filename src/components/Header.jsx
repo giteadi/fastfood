@@ -45,7 +45,7 @@ const Header = ({
             whileHover={{ scale: 1.05 }}
             className="flex items-center space-x-2 flex-shrink-0"
           >
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
+            <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0">
               <img
                 src="https://res.cloudinary.com/bazeercloud/image/upload/v1758950454/Group_1171275291_j2h8qq.png"
                 alt="Easy Deal Logo"
@@ -62,7 +62,7 @@ const Header = ({
             </div>
             {/* Mobile-only simplified text */}
             <div className="sm:hidden">
-              <h1 className="text-lg font-bold text-gray-800">Easy Deal</h1>
+              <h1 className="text-base font-bold text-gray-800">Easy Deal</h1>
             </div>
           </motion.div>
 
@@ -146,7 +146,6 @@ const Header = ({
             >
               <ShoppingCartIcon className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Cart</span>
-              <span className="sm:hidden">Cart</span>
               {getCartCount() > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] sm:text-xs rounded-full w-3.5 h-3.5 sm:w-5 sm:h-5 flex items-center justify-center">
                   {getCartCount()}
