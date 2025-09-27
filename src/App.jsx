@@ -37,7 +37,7 @@ function App() {
               <Route path="/" element={<FoodMenu searchTerm={searchTerm} dietaryFilter={dietaryFilter} />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/restaurants" element={<RestaurantsList />} />
+              <Route path="/restaurants" element={<RestaurantsList searchTerm={searchTerm} />} />
               <Route path="/restaurant/:id" element={<RestaurantDetail />} />
               <Route path="/food/:id" element={<FoodDetail />} />
             </Routes>

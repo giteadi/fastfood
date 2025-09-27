@@ -5,14 +5,25 @@ import { motion } from "framer-motion"
 import { StarIcon, MapPinIcon } from "@heroicons/react/24/solid"
 import { restaurants } from "../data/restaurants"
 
-const RestaurantsList = () => {
+const RestaurantsList = ({ searchTerm = "" }) => {
   const entries = Object.values(restaurants)
+  const normalized = searchTerm.trim().toLowerCase()
+  const filtered = normalized
+    ? entries.filter(
+        (r) =>
+          r.name.toLowerCase().includes(normalized) ||
+          r.cuisines.join(", ").toLowerCase().includes(normalized) ||
+          r.address.toLowerCase().includes(normalized),
+      )
+    : entries
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-          {entries.length} Restaurants
+          {normalized && filtered.length === 0
+            ? `No match — showing all restaurants`
+            : `${filtered.length} Restaurants`}
         </h1>
         <Link to="/" className="text-pink-600 hover:text-pink-700 font-medium text-sm sm:text-base">
           Back to Home
@@ -20,7 +31,7 @@ const RestaurantsList = () => {
       </div>
 
       <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {entries.map((r, index) => (
+        {(filtered.length === 0 ? entries : filtered).map((r, index) => (
           <motion.div
             key={r.id}
             layout

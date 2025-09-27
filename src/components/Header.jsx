@@ -1,7 +1,9 @@
 "use client"
 import { motion } from "framer-motion"
 import { ShoppingCartIcon, MagnifyingGlassIcon, ClockIcon, BuildingStorefrontIcon } from "@heroicons/react/24/outline"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useMemo } from "react"
+import { restaurants } from "../data/restaurants"
 import VegToggle from "./VegToggle"
 import { useCart } from "../context/CartContext"
 
@@ -13,6 +15,21 @@ const Header = ({
   onDietaryFilterChange,
 }) => {
   const { getCartCount } = useCart()
+  const navigate = useNavigate()
+
+  const suggestions = useMemo(() => {
+    const term = (searchTerm || "").trim().toLowerCase()
+    if (!term) return []
+    const list = Object.values(restaurants)
+      .filter(
+        (r) =>
+          r.name.toLowerCase().includes(term) ||
+          r.cuisines.join(", ").toLowerCase().includes(term) ||
+          r.address.toLowerCase().includes(term),
+      )
+      .slice(0, 5)
+    return list
+  }, [searchTerm])
 
   return (
     <motion.header 
@@ -58,8 +75,36 @@ const Header = ({
                 placeholder="Search for delicious food..."
                 value={searchTerm}
                 onChange={(e) => onSearchChange(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    navigate("/restaurants")
+                  }
+                }}
                 className="w-full pl-8 sm:pl-10 pr-4 py-2 text-sm sm:text-base border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
               />
+              {searchTerm && (
+                <div className="absolute left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50">
+                  {suggestions.length > 0 ? (
+                    suggestions.map((r) => (
+                      <button
+                        key={r.id}
+                        onClick={() => navigate(`/restaurant/${r.id}`)}
+                        className="w-full text-left px-3 py-2 hover:bg-gray-50 flex items-center justify-between"
+                      >
+                        <span className="text-sm text-gray-800">{r.name}</span>
+                        <span className="text-xs text-gray-500">{r.cuisines.join(", ")}</span>
+                      </button>
+                    ))
+                  ) : (
+                    <button
+                      onClick={() => navigate("/restaurants")}
+                      className="w-full text-left px-3 py-2 hover:bg-gray-50 text-sm text-gray-700"
+                    >
+                      No match — View all restaurants
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
