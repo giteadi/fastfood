@@ -8,6 +8,8 @@ import FoodMenu from "./components/FoodMenu"
 import OrderHistory from "./components/OrderHistory"
 import { CartProvider } from "./context/CartContext"
 import { OrderProvider } from "./context/OrderContext"
+import { AuthProvider } from "./context/AuthContext"
+import LoginModal from "./components/LoginModal"
 import CartPage from "./pages/CartPage"
 import CheckoutPage from "./pages/CheckoutPage"
 import RestaurantDetail from "./pages/RestaurantDetail"
@@ -21,10 +23,12 @@ function App() {
   const [dietaryFilter, setDietaryFilter] = useState("all")
 
   return (
-    <OrderProvider>
-      <CartProvider>
-        <div className="min-h-screen bg-gray-50">
-          <Toaster position="top-right" />
+    <AuthProvider>
+      <OrderProvider>
+        <CartProvider>
+          <div className="min-h-screen bg-gray-50">
+            <Toaster position="top-right" />
+            <LoginModal />
           <Header
             onOrderHistoryClick={() => setIsOrderHistoryOpen(true)}
             searchTerm={searchTerm}
@@ -43,9 +47,10 @@ function App() {
             </Routes>
           </main>
           <OrderHistory isOpen={isOrderHistoryOpen} onClose={() => setIsOrderHistoryOpen(false)} />
-        </div>
-      </CartProvider>
-    </OrderProvider>
+          </div>
+        </CartProvider>
+      </OrderProvider>
+    </AuthProvider>
   )
 }
 

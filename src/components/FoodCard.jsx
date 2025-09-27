@@ -2,15 +2,21 @@
 import { motion } from "framer-motion"
 import { PlusIcon, StarIcon, ClockIcon } from "@heroicons/react/24/solid"
 import { useCart } from "../context/CartContext"
+import { useAuth } from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 
 const FoodCard = ({ item }) => {
   const { addToCart } = useCart()
+  const { isAuthenticated, openLogin } = useAuth()
   const navigate = useNavigate()
 
   const handleAddToCart = (e) => {
     e?.stopPropagation()
+    if (!isAuthenticated) {
+      openLogin()
+      return
+    }
     addToCart(item)
     toast.success(`${item.name} added to cart!`, {
       icon: "🛒",

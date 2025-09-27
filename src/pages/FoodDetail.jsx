@@ -5,6 +5,7 @@ import { useParams, Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { StarIcon, ClockIcon } from "@heroicons/react/24/solid"
 import { useCart } from "../context/CartContext"
+import { useAuth } from "../context/AuthContext"
 import toast from "react-hot-toast"
 import { foodItems } from "../data/foodItems"
 import { restaurants } from "../data/restaurants"
@@ -15,6 +16,7 @@ const FoodDetail = () => {
   const item = useMemo(() => foodItems.find((f) => f.id === itemId), [itemId])
   const restaurant = item ? restaurants[item.restaurantId] || restaurants["sizzling-spice"] : restaurants["sizzling-spice"]
   const { addToCart } = useCart()
+  const { isAuthenticated, openLogin } = useAuth()
   const navigate = useNavigate()
 
   if (!item) {
@@ -27,6 +29,10 @@ const FoodDetail = () => {
   }
 
   const handleAdd = () => {
+    if (!isAuthenticated) {
+      openLogin()
+      return
+    }
     addToCart(item)
     toast.success(`${item.name} added to cart!`, {
       icon: "🛒",
@@ -35,6 +41,10 @@ const FoodDetail = () => {
   }
 
   const handleBuyNow = () => {
+    if (!isAuthenticated) {
+      openLogin()
+      return
+    }
     addToCart(item)
     navigate("/checkout")
   }
